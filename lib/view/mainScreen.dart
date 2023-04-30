@@ -15,12 +15,18 @@ class _mainScreenState extends State<mainScreen> {
   int? memeCount = 0;
   bool isLoading = true;
   int targetmeme = 50;
+  bool sound_active = false;
 
   GetInitmemeNo() async {
     memeCount = await SaveMyData.fatchdata() ?? 0;
     if (memeCount! > 50) {
       targetmeme = 100;
-    } else if (memeCount! > 500) {
+    }
+    if (memeCount! > 100) {
+      targetmeme = 500;
+      sound_active = true;
+    }
+    if (memeCount! > 500) {
       targetmeme = 1000;
     }
     setState(() {});
@@ -36,18 +42,23 @@ class _mainScreenState extends State<mainScreen> {
 
   void update_url() async {
     String update_link = await Fatchmeme.getFatch();
+
     setState(() {
-      image_url = update_link;
       isLoading = false;
+      image_url = update_link;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        backgroundColor: Colors.black54,
+        title: Center(child: Text("Memopolis")),
+      ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        SizedBox(height: 120),
+        SizedBox(height: 65),
         Text(
           "Meme # ${memeCount.toString()}",
           style: TextStyle(color: Colors.black, fontSize: 39),
@@ -57,7 +68,7 @@ class _mainScreenState extends State<mainScreen> {
           "Target ${targetmeme} Memes",
           style: TextStyle(color: Colors.black, fontSize: 32),
         ),
-        SizedBox(height: 50),
+        SizedBox(height: 30),
         isLoading
             ? Container(
                 height: 400,
@@ -86,7 +97,7 @@ class _mainScreenState extends State<mainScreen> {
               width: 90,
               child: const Center(
                   child: Text(
-                "More Fun",
+                "Ohh Yeh !!",
                 style: TextStyle(fontSize: 20),
               )),
             )),
