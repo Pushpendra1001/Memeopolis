@@ -92,6 +92,7 @@ class _mainScreenState extends State<mainScreen> {
               GetInitmemeNo();
               update_url();
             },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black54),
             child: Container(
               height: 50,
               width: 90,
